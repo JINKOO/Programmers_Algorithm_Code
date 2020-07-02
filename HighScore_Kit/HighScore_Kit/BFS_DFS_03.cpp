@@ -37,16 +37,12 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <iostream>
 using namespace std;
 
-int check[50];
 
-
-int solution(string begin, string target, vector<string> words) 
+int main()
 {
-    int answer = 0;
-    //
     
-    //
-    return answer;
+    return 0;
 }
