@@ -48,23 +48,48 @@ int solution(int bridge_length, int weight, vector<int> truck_weights)
     //
     queue<int> q;
     int current_weight = 0;
+    
     for (int i = 0; i < truck_weights.size(); i++)
     {
         int truck = truck_weights[i];
-
-        if (current_weight + truck <= weight)
+        while (1)
         {
-            current_weight += truck;
-            q.push(truck);
-        }
+            //1. 현재 다리가 비어있는 경우, 무조건 진입
+            if (q.empty())
+            {
+                q.push(truck);
+                current_weight += truck;
+                answer++;
+                break;
+            }
 
-        else
-        {
+            //2. 현재 다리가 꽉 차있는 경우.
+            else if (q.size() == bridge_length)
+            {
+                current_weight -= q.front();
+                q.pop();
+            }
 
+            //3. 하중과 비교하여 진입 여부 따진다.
+            else
+            {
+                if (current_weight + truck > weight)
+                {
+                    q.push(0);
+                    answer++;
+                }
+                else
+                {
+                    q.push(truck);
+                    current_weight += truck;
+                    answer++;
+                    break;
+                }
+            }
         }
     }
     //
-    return answer;
+    return answer + bridge_length;
 }
 
 int main()
@@ -74,5 +99,8 @@ int main()
     cout << solution(100, 100, { 10 }) << "\n";
     cout << solution(100, 100, { 10,10,10,10,10,10,10,10,10,10 }) << "\n";
 
+    char c = 'a';
+    cout << (char)toupper(c) << "\n";
+    cout << tolower(c) << "\n";
     return 0;
 }
