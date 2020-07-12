@@ -48,6 +48,12 @@
 
    #. prioity_queue는 정렬 상태를 유지한다. 이를 명심하자.
    #. 문제를 보고 queue가 아닌, priority_queue를 사용해야하는 이유...
+      --> 문제에서 scoville지수를 계산 할 때, 가장 최솟값과, 2번째 작은 값을 기반으로 계산하기 때문,
+      우선순위 queue는 정렬 상태를 유지한다.
+
+      cf).
+      priority_queue<int, vector<int>, greater<int>>  //여기서 greater<int>는 오름차순.
+      sort(v.begin(), v.end(), greater<int>())        //여기서 greater<int>()는 내림차순.
 */
 #include <string>
 #include <vector>
