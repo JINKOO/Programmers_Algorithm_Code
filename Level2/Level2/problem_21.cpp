@@ -69,11 +69,12 @@ int solution(vector<int> nums)
     int answer = 0;
     //
 
-    for (int i = 0; i < nums.size(); i++)
+    for (int i = 0; i < nums.size() - 2; i++)
         dfs(nums, i, 0, 0);
 
     for (int i : v)
     {
+        //cout << i << " ";
         if (is_prime(i))
             answer++;
     }
