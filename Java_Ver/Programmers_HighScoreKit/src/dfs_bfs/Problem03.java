@@ -27,6 +27,21 @@
  *       hit	   cog	     [hot, dot, dog, lot, log]	      0
  */
 
+/*
+ *  #. 나의 풀이법.
+ *     - 최단 변환 수를 구하는 것이므로, BFS로 접근 하였다.
+ *     - Queue에 삽입 할 원소를 Pair형으로 하였다.
+ *       String과 words[]에서 해당 String의 index를 저장한다.
+ *     - record가 필요하다. 변환 된 단어이면, 이전 단어의 record + 1;
+ *       record[index]의미는 현재 단어까지 변환 횟수이다.
+ *     - 단어가 변환되는 것은 두 String을 비교하는데 같지 않은 char가 오직 1개여야 한다.
+ *     
+ *                    1      2      3      4     5
+ *     hit(begin) -> hot -> dot -> dog -> cog(target)
+ *                              -> lot -> log -> cog(target)
+ *                       -> lot -> log -> cog(target)
+ *     이 중 최소 변환 수는 4이다.
+ */
 package dfs_bfs;
 
 import java.util.LinkedList;
@@ -44,13 +59,24 @@ class Pair {
 }
 
 public class Problem03 {
-
-	private int[] record;
-	private boolean[] check;
+	
+	private boolean[] check;    //해당 문자열 index 방문 처리 배열
+	private int[] record;       //해당 문자열까지의 변환 횟수 저장 배열
 	
 	public Problem03() {
-		this.record = new int[50];
 		this.check = new boolean[50];
+		this.record = new int[50];
+	}
+	
+	public boolean compareString(String curr, String next) {
+		int count = 0;
+		
+		for(int i = 0; i < curr.length(); i++) {
+			if(curr.charAt(i) != next.charAt(i))
+				count++;
+		}
+		
+		return (count == 1) ? true : false;
 	}
 	
 	public int bfs(String[] words, int index, String begin, String target) {
@@ -59,27 +85,28 @@ public class Problem03 {
 		
 		q.offer(new Pair(begin, index));
 		check[index] = true;
+		
+		//1. 일단 bfs함수에 진입했다는 뜻은 begin에서 변횐된 단어가 있다는 뜻이므로, 해당 단어가 존재하는 index에 1기록.
 		record[index] = 1;
 		
 		while(!q.isEmpty()) {
 			Pair curr = q.poll();
 			
+			//2. target과 일치하는 단어 이면, 현재 까지의 변환 횟수 return.
 			if(curr.str.equals(target))
 				return record[curr.index];
-	
+			
 			for(int k = 0; k < words.length; k++) {
 				String next = words[k];
-				int count = 0;
-				for(int i = 0; i < next.length(); i++) {
-					if(curr.str.charAt(i) != next.charAt(i))
-						count++;
-				}
-				
-				if(count == 1 && check[k] == false) {
+				//3. 변환 가능한 단어이고, 아직 방문하지 않았던 index이면,
+				if(compareString(curr.str, next) && check[k] == false) {
+					//3.1 방문처리 하고
 					check[k] = true;
+					//3.2 이전 단어 까지의 변환 횟수 + 1
 					record[k] = record[curr.index] + 1;
+					//3.3 Queue에 삽입
 					q.offer(new Pair(next, k));
-				}	
+				}
 			}
 		}
 		return 0;
@@ -88,17 +115,10 @@ public class Problem03 {
 	public int solution(String begin, String target, String[] words) {
 		int answer = 0;
 		//
-		
 		for(int i = 0; i < words.length; i++) {
-			String curr = words[i];
-			int count = 0;
-			for(int j = 0; j < begin.length(); j++) {
-				if(curr.charAt(j) != begin.charAt(j))
-					count++;
-			}
-			//System.out.println(count);
-			if(count == 1 && check[i] == false) {
-				answer = bfs(words, i, curr, target);
+			String next = words[i];
+			if(compareString(begin, next) && check[i] == false) {
+				answer = bfs(words, i, next, target);
 			}
 		}
 		
