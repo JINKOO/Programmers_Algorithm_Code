@@ -78,9 +78,11 @@ public class Problem02 {
 	public static void main(String[] args) {
 		
 		Problem02 p = new Problem02();
-//		int n = 3;
-//		int[][] computers = {{1,1,0}, {1,1,0}, {0,0,1}};
-//		System.out.println(p.solution(n, computers));
+		int n = 3;
+		int[][] computers = {{1,1,0}, {1,1,0}, {0,0,1}};
+		System.out.println(p.solution(n, computers));
+		
+		p.check = new boolean[200];
 		
 		int n2 = 3;
 		int[][] computers2 = {{1,1,0}, {1,1,1}, {0,1,1}};
