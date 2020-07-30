@@ -23,6 +23,12 @@
  *     4	[[0,1,1],[0,2,2],[1,2,5],[1,3,1],[2,3,8]]	     4
  */
 
+/*
+ *  #. 어려워서 못품..
+ * 
+ * 
+ * 
+ */
 package greedy;
 
 import java.util.Arrays;
@@ -62,7 +68,7 @@ public class Problem05 {
 
 						total_island++;
 						answer += costs[i][2];
-						break;
+						//break;
 					}
 			}
 		}
@@ -74,14 +80,25 @@ public class Problem05 {
 	public static void main(String[] args) {
 
 		Problem05 p = new Problem05();
+		
 		int n = 4;
 		int[][] costs = {
 				{0,1,1},
 				{0,2,2},
-				{1,2,5},
+				{1,2,0},
 				{1,3,1},
 				{2,3,8}
 		};
 		System.out.println(p.solution(n, costs));
+		
+		int n2 = 5;
+		int[][] costs2 = {
+				{0,1,1},
+				{1,2,2},
+				{1,3,2},
+				{1,4,3},
+				{1,5,3}
+		};
+		System.out.println(p.solution(n2, costs2));
 	}
 }
