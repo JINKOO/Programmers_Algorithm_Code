@@ -49,7 +49,7 @@
  *     - BFS개념, 백준 문제 풀었다면, 딱히 어려운 문제는 아니였다.
  */
 
-package Problem01;
+package problem01;
 
 import java.util.LinkedList;
 import java.util.Queue;
