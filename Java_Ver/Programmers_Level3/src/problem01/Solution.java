@@ -78,9 +78,11 @@ public class Solution {
 		this.list = new ArrayList<>();
 		this.record = new int[n + 1];
 		
+		//인접 리스트 초기화
 		for(int i = 0; i < n + 1; i++) 
 			list.add(new ArrayList<>());
 		
+		//edge의 연결 정보를 바탕으로 index[]에 각 노드를 연결 정보 초기화.
 		for(int i = 0; i < edge.length; i++) {
 			list.get(edge[i][0]).add(edge[i][1]);
 			list.get(edge[i][1]).add(edge[i][0]);
@@ -90,7 +92,6 @@ public class Solution {
 		
 		Arrays.sort(record);
 		int max = record[record.length-1];
-		
 		
 		for(int i = 0; i < record.length; i++) {
 			if(max == record[i])

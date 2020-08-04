@@ -30,6 +30,7 @@
 using namespace std;
 
 int map[20001][20001];
+//record가 방문처리 기능도 하게 된다. !=0이면, 기록된 곳이므로 방문한곳
 int record[20001];
 
 void bfs(int n, int start)
