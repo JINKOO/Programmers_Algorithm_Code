@@ -21,6 +21,8 @@
       - 간단한 문자열 처리문제. 단 2자리 이상, -붙였을 때 약간의 고민을 함.
         stoi()를 사용해야한다.
       - 공백을 제외한 문자들을 숫자로 변환하여 vector에 삽입하고, 정렬한다.
+
+      2020.08.24 또 다른 풀이 추가 strtok_s()사용.
 */
 #include <string>
 #include <vector>
@@ -59,9 +61,38 @@ string solution(string s) {
     return answer;
 }
 
+
+string solution2(string str)
+{
+    string answer = "";
+    vector<int> v;
+
+    //1. str을 char*c 형으로 복사(c_str()하면 원본으로는 사용 불가하다).
+    char* c = new char[str.length() + 1];
+    strcpy_s(c, str.length() + 1 ,str.c_str());
+
+    //2. strtok_s()사용.
+    char* context = nullptr;
+    char* ptr = strtok_s(c, " ", &context);
+
+    while (ptr != nullptr)
+    {
+        v.push_back(stoi(ptr));
+        ptr = strtok_s(nullptr, " ", &context);
+    }
+
+    sort(v.begin(), v.end(), less<int>());
+
+    string min = to_string(v.front());
+    string max = to_string(v.back());
+
+    answer = min + " " + max;
+    return answer;
+}
+
 int main()
 {
-    cout << solution("-1 -2 -3 -4") << "\n";
-    
+    //cout << solution("-1 -2 -3 -4") << "\n";
+    cout << solution2("-1 -2 -3 -4") << "\n";
     return 0;
 }

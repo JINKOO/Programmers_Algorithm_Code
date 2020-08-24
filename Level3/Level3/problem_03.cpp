@@ -43,76 +43,62 @@
 #include <iostream>
 using namespace std;
 
-class Music
-{
-public:
-    int index;
-    string genre;
-    int plays;
-
-    Music(int index, string genre, int plays)
-    {
-        this->index = index;
-        this->genre = genre;
-        this->plays = plays;
-    }
-};
-
 bool myCompare(const pair<string, int> &p1, const pair<string, int> &p2)
 {
     return p1.second > p2.second;
 }
 
-bool myCompare2(const Music* m1, const Music* m2)
+bool myCompare2(const pair<int, pair<string, int>>& p1, const pair<int, pair<string, int>>& p2)
 {
-    return m1->plays > m2->plays;
+    return p1.second.second > p2.second.second;
 }
 
 vector<int> solution(vector<string> genres, vector<int> plays) 
 {
     vector<int> answer;
     //
-
-    map<string, int> genres_map;
-    vector<pair<string, int>> sorted_v;
-    vector<Music*> music_v;
+    map<string, int> genreMap;
+    vector<pair<int, pair<string, int>>> musicList;
+    vector<pair<string, int>> genreV;
 
     for (int i = 0; i < genres.size(); i++)
     {
-        if (genres_map.find(genres[i]) != genres_map.end())
-            genres_map[genres[i]] += plays[i];
+        if (genreMap.find(genres[i]) != genreMap.end())
+            genreMap[genres[i]] += plays[i];
         else
-            genres_map.insert(make_pair(genres[i], plays[i]));
+            genreMap.insert(make_pair(genres[i], plays[i]));
 
-        music_v.push_back(new Music(i, genres[i], plays[i]));
+        musicList.push_back(make_pair(i, make_pair(genres[i], plays[i])));
     }
 
-    map<string, int>::iterator iter;
+    //장르별 plays가 많은 기준으로 내림차순 정렬해야 한다.
+    //map을 value기준으로 정렬하기 위해서는 vector로 치환하고 vector를 정렬한다.
+    map<string, int>::iterator it;
+    for (it = genreMap.begin(); it != genreMap.end(); it++)
+        genreV.push_back(make_pair(it->first, it->second));
 
-    for (iter = genres_map.begin(); iter != genres_map.end(); iter++)
-        sorted_v.push_back(make_pair(iter->first, iter->second));
+    sort(genreV.begin(), genreV.end(), myCompare);
 
-    sort(sorted_v.begin(), sorted_v.end(), myCompare);
-  
-    vector<pair<string, int>>::iterator iter2;
-    for (iter2 = sorted_v.begin(); iter2 != sorted_v.end(); iter2++)
+    vector<pair<string, int>>::iterator it2;
+    for (it2 = genreV.begin(); it2 != genreV.end(); it2++)
     {
-        string genre_key = iter2->first;
-        vector<Music*> temp_v;
-        for (int i = 0; i < music_v.size(); i++)
+        string genre = it2->first;
+        vector<pair<int, pair<string, int>>> musicInGenre;
+        for (int i = 0; i < musicList.size(); i++)
         {
-            if (genre_key == music_v[i]->genre)
-                temp_v.push_back(music_v[i]);
+            if (genre == musicList[i].second.first)
+                musicInGenre.push_back(musicList[i]);
         }
 
-        if (temp_v.size() >= 2)
+        if (musicInGenre.size() >= 2)
         {
-            sort(temp_v.begin(), temp_v.end(), myCompare2);
-            answer.push_back(temp_v[0]->index);
-            answer.push_back(temp_v[1]->index);
+            sort(musicInGenre.begin(), musicInGenre.end(), myCompare2);
+            answer.push_back(musicInGenre[0].first);
+            answer.push_back(musicInGenre[1].first);
         }
-        else if (temp_v.size() == 1)
-            answer.push_back(temp_v[0]->index);
+
+        else if (musicInGenre.size() == 1)
+            answer.push_back(musicInGenre[0].first);
     }
     //
     return answer;
