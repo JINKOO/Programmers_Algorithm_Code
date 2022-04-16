@@ -26,7 +26,7 @@ public class PrimeNumber {
         isPrime[0] = false;
         isPrime[1] = false;
         for(int i = 2; i * i <= n; i++) {
-            if (isPrime[i]) {
+            if (isPrime[i]) { // 이미 지워진 숫자에 대해서는 검사할 필요가 없으므로.
                 for (int j = i * i; j <= n; j += i) {
                     isPrime[j] = false;
                 }
