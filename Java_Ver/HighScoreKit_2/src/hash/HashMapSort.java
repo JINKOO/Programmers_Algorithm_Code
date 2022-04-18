@@ -2,6 +2,7 @@ package hash;
 
 import java.util.*;
 
+
 // HashMap
 public class HashMapSort {
 
@@ -35,6 +36,19 @@ public class HashMapSort {
 
         for (Map.Entry<String, Integer> e : entryList) {
             System.out.println("[" + e.getKey() + ", " + e.getValue() + "]");
+        }
+
+        /////////////////////
+
+        Set<String> set = new HashSet<>();
+        set.add("KO");
+        set.add("PARK");
+        set.add("KIM");
+
+        Iterator<String> it = set.iterator();
+        System.out.println(set.size());
+        while(it.hasNext()) {
+            System.out.println(it.next());
         }
     }
 }

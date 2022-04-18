@@ -63,7 +63,7 @@ public class BasicSort {
             }
             arr[j + 1] = target;
         }
-        System.out.println(Arrays.toString(arr));
+        System.out.println("insertion :: " + Arrays.toString(arr));
     }
 
     // Custom 객체 정렬
