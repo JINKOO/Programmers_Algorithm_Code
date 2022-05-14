@@ -25,6 +25,23 @@ public class NandM {
         }
     }
 
+    public void backTracking2(int k, int n, int m) {
+        if (k == m) {
+            for (int i = 0; i < m; i++) {
+                System.out.println(numbers[i] + " ");
+            }
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (!isUsed[i]) {
+                numbers[k] = i;
+                isUsed[i] = true;
+                backTracking2(k + 1, n, m);
+                isUsed[i] = false;
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         NandM nm = new NandM();

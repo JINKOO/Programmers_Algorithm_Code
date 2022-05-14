@@ -12,7 +12,7 @@ public class Fibonacci {
         if (n == 1) {
             return 1;
         }
-        return fibonacci_recursion(n - 2) + fibonacci_recursion(n - 1);
+        return fibonacci_recursion(n - 1) + fibonacci_recursion(n - 2);
     }
 
     // DP를 이용한 solution2

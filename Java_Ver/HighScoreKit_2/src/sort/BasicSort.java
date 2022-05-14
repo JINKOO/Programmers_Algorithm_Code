@@ -110,5 +110,10 @@ public class BasicSort {
 
         sort.mySort();
         sort.mySort2();
+
+        Set<Student> set = new HashSet<>();
+        set.add(new Student(21, "KO"));
+        set.add(new Student(21, "KO"));
+        System.out.println(set.size());
     }
 }
