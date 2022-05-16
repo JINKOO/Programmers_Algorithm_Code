@@ -46,7 +46,7 @@ public class BOJ_1874 {
                 answer.add('-');
             }
 
-            // 이 경우에는, stack의 top이 미친놈처럼 수열을 만드는데 방해하는 놈
+            // 이 경우에는, stack의 top이 수열을 만드는데 방해하는 놈
             if (!stack.empty() && stack.peek() > numbers[i]) {
                 System.out.println("NO");
                 return;
