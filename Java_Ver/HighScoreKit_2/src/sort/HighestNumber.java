@@ -7,13 +7,15 @@ public class HighestNumber {
     public String solution(int[] numbers) {
         String answer = "";
 
+        StringBuffer sb = new StringBuffer();
+
         List<String> list = new ArrayList<>();
         for (int e : numbers) {
             list.add(Integer.toString(e));
         }
 
         // 정렬 기준
-        Collections.sort(list, new Comparator<String>() {
+        list.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
                 return (o2 + o1).compareTo(o1 + o2);
@@ -21,12 +23,11 @@ public class HighestNumber {
         });
 
         for (String s : list) {
-            answer += s;
+            sb.append(s);
         }
 
-        if (answer.startsWith("0")) {
-            answer = "0";
-        }
+        answer = sb.toString();
+
         return answer;
     }
 
