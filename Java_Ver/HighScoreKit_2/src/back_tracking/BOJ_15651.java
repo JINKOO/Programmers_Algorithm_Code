@@ -4,34 +4,26 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class N_M_2 {
+// N과 M(3)
+public class BOJ_15651 {
 
     private int n;
     private int m;
     private int[] arr = new int[10];
     private boolean[] isUsed = new boolean[10];
 
-    public void backTracking(int k) {
-
+    private void backTracking(int k) {
         if (k == m) {
             for (int i = 0; i < m; i++) {
                 System.out.print(arr[i] + " ");
             }
             System.out.println();
+            return;
         }
 
-        int start = 1;
-        if (k != 0) {
-            start = arr[k - 1] + 1;
-        }
-
-        for (int i = start; i <= n; i++) {
-            if (!isUsed[i]) {
-                arr[k] = i;
-                isUsed[i] = true;
-                backTracking(k + 1);
-                isUsed[i] = false;
-            }
+        for (int i = 1; i <= n; i++) {
+            arr[k] = i;
+            backTracking(k + 1);
         }
     }
 
@@ -43,11 +35,12 @@ public class N_M_2 {
         this.m = Integer.parseInt(input[1]);
 
         backTracking(0);
+
     }
 
     public static void main(String[] args) throws IOException {
 
-        N_M_2 sol = new N_M_2();
+        BOJ_15651 sol = new BOJ_15651();
         sol.solution();
     }
 }
